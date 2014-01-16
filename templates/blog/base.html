@@ -4,14 +4,15 @@
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %} </title>
   <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}global.css" />
+  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}post.css" />
 </head>
 <body style="color:#444;background-color:#e6e6e6;font-family:sans-serif">
-  <div id="page">
+  <div class="page">
     <div class="header">
-      <h1 class="title">Justin's Thoughts</h1>
-      <h5 class="desc">Just my idle thoughts</h5>
+      <h1 class="blog-title">Justin's Thoughts</h1>
+      <h5 class="blog-desc">Just my idle thoughts</h5>
     </div>
-    <div id="menu">
+    <div class="menu">
       <hr />
       <ul class="menu">
         <li><a href="/" class="title-menu-item">Home</a></li>
@@ -19,9 +20,16 @@
       </ul>
       <hr />
     </div>
-    <div class = "content">
-      {% block content %}
-      {% endblock %}
+    
+    <div class = "maincontent">
+      <div class = "sidebar">
+        <input type="text" width="30"/>
+      </div>
+      <div class = "content">
+        {% block content %}
+        {% endblock %}
+      </div>
+      <div style="clear:both;"></div>
     </div>
   </div>
 </body>

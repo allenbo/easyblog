@@ -1,0 +1,18 @@
+.post .title a {
+  font-weight:normal;
+}
+
+.post .title a:link, a:visited {
+  color:#217596;
+}
+
+.post .title a:hover {
+  color:#555555;
+  font-weight:bold;
+}
+
+
+.post .info{
+  padding-top:4px;
+  padding-bottom:2em;
+}
