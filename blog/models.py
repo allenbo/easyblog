@@ -7,14 +7,13 @@ class Category(models.Model):
   name = models.CharField(max_length=100)
 
 
-
 class Post(models.Model):
   title = models.CharField(max_length=100)
   slug = models.SlugField(max_length = 100)
   content = models.TextField()
   published = models.BooleanField(default = False)
   created_date = models.DateTimeField(auto_now_add = True)
-  category = models.ManyToManyField(Category, blank=True)
+  category = models.ManyToManyField(Category)
 
 
   class Meta:

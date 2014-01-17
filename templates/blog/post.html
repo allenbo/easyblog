@@ -3,6 +3,25 @@
 {% block title %} {{ post.title }}{% endblock %}
 
 {% block content %}
-<h3>{{ post.title }}</h3>
-<p> {{ post.content }} </p>
+<div class = "post">
+  <div class = "title">
+    <h3>{{ post.title }}</h3>
+  </div>
+  <div class = "info">
+    <span class = "item">
+      {{post.get_reply_num}} Reply
+    </span>
+    <span class = "item">
+      {{post.get_visit_num}} Visited
+    </span>
+  </div>
+  <div class = "blog_content">
+    <p>{{ post.content }}</p>
+  </div>
+  <div class ="footer">
+    <p>This entry is posted on <a href="/blog/{{post.created_date|date:"Y"}}/{{post.created_date|date:"m"}}/{{post.created_date|date:"d"}}/">
+      {{post.created_date|date}}
+    </a></p>
+  </div>
+</div>
 {% endblock %}

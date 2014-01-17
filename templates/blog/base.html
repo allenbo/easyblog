@@ -23,13 +23,35 @@
     
     <div class = "maincontent">
       <div class = "sidebar">
-        <input type="text" width="30"/>
+        <div class = "widget widget_form">
+          <form action="/search/" method="get" class = "search">
+            <p><input type="text" name="q" class="search text"/><input type="submit" value="search" class = "search  buttom"></p>
+          </form>
+        </div>
+        <div class = "widget widget_recent_post">
+          <p class = "widget_title">RECENT POST</p>
+          <p class = "widget_content">{% if recent_post %}<a href="{{recent_post.get_abs_url}}">{{ recent_post.title }}</a>{% else %}There is no post{% endif %}</p>
+        </div>
+        <div class = "widget widget_recent_reply">
+          <p class = "widget_title">RECENT POST</p>
+          <p class = "widget_content">{% if recent_reply %}<a href="{{recent_reply.get_post_url}}">{{ recent_reply.name }}on{{recent_reply.post}}</a>{% else %}There is no reply{% endif %}</p>
+        </div>
+        <div class = "widget widget_archive">
+          <p class = "widget_title">ARCHIVE</p>
+        </div>
+        <div class = "widget widget_category">
+          <p class = "widget_title">CATEGORY</p>
+        </div>
       </div>
       <div class = "content">
         {% block content %}
         {% endblock %}
       </div>
       <div style="clear:both;"></div>
+      <div class = "footer">
+        <hr />
+        <p><a href="www.django.com">Powered by Django</a></p>
+      </div>
     </div>
   </div>
 </body>

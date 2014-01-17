@@ -1,3 +1,7 @@
+.post .title {
+  font-family:"Open Sans", Helvetica, Arial, sans-serif;
+}
+
 .post .title a {
   font-weight:normal;
 }
@@ -11,8 +15,35 @@
   font-weight:bold;
 }
 
-
-.post .info{
+.post .info {
   padding-top:4px;
   padding-bottom:2em;
+}
+
+.post .info .item {
+  padding-right:2em;
+  font-family:Arial, serif;
+  font-size:4px;
+  color:#5f5f5f;
+}
+.post .blog_content {
+  font-family:"Open Sans", Arial, sans-serif;
+  margin-right:4em;
+}
+
+.post .blog_content p {
+  line-height:1.7;
+  color:#282828;
+}
+
+.post .footer {
+  padding-top:4px;
+  margin-bottom:4em;
+  margin-right:4em;
+}
+.post .footer p {
+  font-family:Arial, serif;
+  font-size:10px;
+  line-height:1.7;
+  font-style:italic;
 }
