@@ -24,8 +24,9 @@
     <div class = "maincontent">
       <div class = "sidebar">
         <div class = "widget widget_form">
-          <form action="/search/" method="get" class = "search">
-            <p><input type="text" name="q" class="search text"/><input type="submit" value="search" class = "search  buttom"></p>
+          <form action="/blog/search/" method="get" class = "search">
+            <p><input type="text" name="q" class="search text"/>
+            <input type="submit" value="search" class = "search  buttom"></p>
           </form>
         </div>
         <div class = "widget widget_recent_post">
@@ -34,13 +35,13 @@
         </div>
         <div class = "widget widget_recent_reply">
           <p class = "widget_title">RECENT POST</p>
-          <p class = "widget_content">{% if recent_reply %}<a href="{{recent_reply.get_post_url}}">{{ recent_reply.name }}on{{recent_reply.post}}</a>{% else %}There is no reply{% endif %}</p>
+          <p class = "widget_content">{% if recent_reply %}<a href="{{recent_reply.get_post_url}}">{{ recent_reply.name }} on {{recent_reply.post}}</a>{% else %}There is no reply{% endif %}</p>
         </div>
         <div class = "widget widget_archive">
           <p class = "widget_title">ARCHIVE</p>
           <ul class = archive_list>
             {% for archive in archives %}
-            <li>{{ archive.created_date|date }}</li>
+            <li><a href = "/blog/{{archive.created_date|date:"Y"}}/{{archive.created_date|date:"m"}}">{{ archive.created_date|date:"M Y"}}</a></li>
             {% endfor %}
         </div>
         <div class = "widget widget_category">

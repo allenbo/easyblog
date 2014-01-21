@@ -28,7 +28,8 @@ class Post(models.Model):
     return self.title
 
   def get_abs_url(self):
-    return '/blog/%s' % self.id
+    mangled = self.title.replace(' ', '__')
+    return '/blog/%s' % mangled
 
   def get_visit_num(self):
     return self.visit
