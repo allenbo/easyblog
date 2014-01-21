@@ -71,6 +71,7 @@ ul.menu li {
   float:none;
   width:auto;
   overflow:hidden;
+  padding-right:3em;
 }
 
 .sidebar {
@@ -88,11 +89,21 @@ ul.menu li {
 
 .text {
   border:1px solid #bbb;
-  padding:4px;
+  padding-left:10px;
+  padding-right:1px;
+  padding-top:4px;
+  padding-bottom:4px;
   border-radius:3px;
   outline:none;
-  height:20px;
   font-family:Monospace;
+}
+
+.nondisplay {
+  display:none;
+}
+
+.text.search {
+  height:20px;
 }
 
 

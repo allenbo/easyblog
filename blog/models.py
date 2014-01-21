@@ -32,9 +32,31 @@ class Post(models.Model):
     return 0
 
 
+  def get_prev_post(self):
+    if self.id == 1:
+      return None
+    else:
+      return Post.objects.get(id = self.id - 1)
+
+  def get_next_post(self):
+    if self.id == Post.objects.count():
+      return None
+    else:
+      return Post.objects.get(id = self.id + 1)
+
+
 
 class Reply(models.Model):
   name = models.CharField(max_length=100)
   email = models.EmailField(blank = True)
   to = models.IntegerField(default=0)
+  message = models.CharField(max_length = 1000)
   post = models.ForeignKey(Post)
+
+
+  @staticmethod
+  def insert_from_form(cd):
+    post = Post.objects.get(id = int(cd['blog_id']))
+    Reply(name = cd['name'], email = cd['email'], to = '0', message = cd['message'], post = post).save()
+
+  

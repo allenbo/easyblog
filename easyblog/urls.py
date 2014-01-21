@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^$', index),
     url(r'^blog/$', index),
     url(r'blog/(\d+)/$',  post),
+    url(r'blog/message/$', 'blog.views.message'),
     url(r'about/$', 'blog.views.about'),
 )

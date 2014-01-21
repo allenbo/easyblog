@@ -47,3 +47,40 @@
   line-height:1.7;
   font-style:italic;
 }
+
+.prev_next_bar{
+  font-style:italic;
+  font-size:10px;
+  font-family:Arial, sans-serif;
+  margin-bottom:4em;
+}
+
+.prev_next_bar span {
+  width:50%;
+  float:left;
+}
+
+.next_link {
+  text-align:right;
+}
+.reply_form label {
+  display:block;
+  line-height:1.7em;
+  color:#444;
+  font-size:100%;
+  vertical-align:baseline;
+  font-family:"Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.reply_form input.text {
+  width:50%;
+  height:30px;
+}
+
+
+textarea {
+  width:90%;
+  line-height:1.7em;
+  padding-top:10px;
+}
+

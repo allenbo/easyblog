@@ -24,4 +24,44 @@
     </a></p>
   </div>
 </div>
+<div class = "prev_next_bar">
+  <span class = "prev_link">
+    {% with prev_post=post.get_prev_post %}
+    {% if prev_post %}
+    <a href="{{prev_post.get_abs_url}}">Prev:{{prev_post.title}}</a>
+    {% else %}
+    This is the first post
+    {% endif %}
+    {% endwith %}
+  </span>
+  <span class = "next_link">
+    {% with next_post=post.get_next_post %}
+    {% if next_post %}
+    <a href="{{next_post.get_abs_url}}">Next:{{next_post.title}}</a>
+    {% else %}
+    This is the last post
+    {% endif %}
+    {% endwith %}
+  </span>
+  <div style="clear:both">
+  </div>
+</div>
+<div class = "reply_panel">
+  <hr />
+  {% for reply in replies %}
+    <p>{{reply.name}}</p>
+    <p>{{reply.message}}</p>
+    {% if not forloop.last %}
+    <hr />
+    {% endif %}
+  {% endfor %}
+  <hr />
+</div>
+<div class = "reply_form">
+  <form action="/blog/message/" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Submit"  class="buttom"/>
+  </form>
+</div>
 {% endblock %}
