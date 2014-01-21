@@ -12,9 +12,7 @@ def index(request):
   recent_reply = Reply.objects.first()
   categories = Category.objects.all()
   archives = None
-  if posts:
-    archives = posts[0].get_archive()
-    print archives
+  archives = Post.get_archive()
   return render(request, 'blog/index.html', {'posts': posts, 'recent_post':recent_post,
     'recent_reply':recent_reply, 'categories': categories, 'archives':archives})
 
@@ -28,8 +26,7 @@ def post(request, mangled):
   form = ReplyForm(initial = {'blog_id':post.id})
   recent_post = Post.objects.first()
   recent_reply = Reply.objects.first()
-  archives = None
-  archives = post.get_archive()
+  archives = Post.get_archive()
   return render(request, 'blog/post.html', { 'post': post, 'recent_post':recent_post,
     'recent_reply':recent_reply, 'form': form, 'replies': replies, 'categories': categories,
     'archives':archives} )
@@ -54,9 +51,7 @@ def category(request, name):
   recent_reply = Reply.objects.first()
   categories = Category.objects.all()
   archives = None
-  if posts:
-    archives = posts[0].get_archive()
-    print archives
+  archives = Post.get_archive()
   return render(request, 'blog/index.html', {'posts': posts, 'recent_post':recent_post,
     'recent_reply':recent_reply, 'categories': categories, 'archives':archives})
 
@@ -71,9 +66,7 @@ def search(request):
       recent_reply = Reply.objects.first()
       categories = Category.objects.all()
       archives = None
-      if posts:
-        archives = posts[0].get_archive()
-        print archives
+      archives = Post.get_archive()
       return render(request, 'blog/index.html', {'posts': posts, 'recent_post':recent_post,
         'recent_reply':recent_reply, 'categories': categories, 'archives':archives})
     except KeyError:
