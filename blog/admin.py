@@ -13,7 +13,10 @@ class PostAdmin(admin.ModelAdmin):
   save_on_top = True
   preppopulated_fields = {'slug' : ('title', ) }
 
+class CategoryAdmin(admin.ModelAdmin):
+  list_display = ['name']
+
 
 admin.site.register(Post, PostAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Reply)

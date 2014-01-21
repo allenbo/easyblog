@@ -1,10 +1,14 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
 
 class Category(models.Model):
   name = models.CharField(max_length=100)
+
+  def get_num(self):
+    return Category.objects.filter(name = self.name).count()
 
 
 class Post(models.Model):
@@ -14,6 +18,7 @@ class Post(models.Model):
   published = models.BooleanField(default = False)
   created_date = models.DateTimeField(auto_now_add = True)
   category = models.ManyToManyField(Category)
+  visit = models.IntegerField()
 
 
   class Meta:
@@ -23,13 +28,13 @@ class Post(models.Model):
     return self.title
 
   def get_abs_url(self):
-    return 'blog/%s' % self.id
+    return '/blog/%s' % self.id
 
   def get_visit_num(self):
-    return 0
+    return self.visit
 
   def get_reply_num(self):
-    return 0
+    return Reply.objects.filter(post = self).count()
 
 
   def get_prev_post(self):
@@ -44,6 +49,10 @@ class Post(models.Model):
     else:
       return Post.objects.get(id = self.id + 1)
 
+  @staticmethod
+  def get_archive():
+    return Post.objects.values('created_date').distinct()
+
 
 
 class Reply(models.Model):
@@ -52,11 +61,14 @@ class Reply(models.Model):
   to = models.IntegerField(default=0)
   message = models.CharField(max_length = 1000)
   post = models.ForeignKey(Post)
+  date = models.DateTimeField()
 
 
   @staticmethod
   def insert_from_form(cd):
     post = Post.objects.get(id = int(cd['blog_id']))
-    Reply(name = cd['name'], email = cd['email'], to = '0', message = cd['message'], post = post).save()
+    date = datetime.now()
+    Reply(name = cd['name'], email = cd['email'], to = '0', message = cd['message'], post = post,
+        date=date).save()
 
   

@@ -38,9 +38,18 @@
         </div>
         <div class = "widget widget_archive">
           <p class = "widget_title">ARCHIVE</p>
+          <ul class = archive_list>
+            {% for archive in archives %}
+            <li>{{ archive.created_date|date }}</li>
+            {% endfor %}
         </div>
         <div class = "widget widget_category">
           <p class = "widget_title">CATEGORY</p>
+          <ul class = 'category_list'>
+            {% for category in categories %}
+            <li><a href="/blog/category/{{ category.name }}/">{{ category.name }}({{category.get_num}})</a></li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
       <div class = "content">
