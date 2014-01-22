@@ -1,0 +1,8 @@
+.header_banner {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:35px;
+  background-color:#444;
+}

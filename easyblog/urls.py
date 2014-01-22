@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 
-from django.contrib import admin
+#from django.contrib import admin
 from blog.views import index, post
 from blog.models import Post, Reply
+import admin
 
-admin.autodiscover()
+#admin.autodiscover()
 
 
 urlpatterns = patterns('',
@@ -12,7 +13,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'easyblog.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include('admin.urls')),
     url(r'^$', index),
     url(r'^blog/$', index),
     url(r'^blog/search/$', 'blog.views.search'),
