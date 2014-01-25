@@ -8,17 +8,19 @@
 <body>
   <div class = "header_banner">
   </div>
-  <div class = "side_bar">
-    <ul class = "menu">
-      <li class = "item"><a href="/admin/">home</a></li>
-      <li class = "item"><a href="/admin/post/">post</a></li>
-      <li class = "item"><a href="/admin/reply/">reply</a></li>
-      <li class = "item"><a href="/admin/media/">media</a></li>
-    </ul>
-  </div>
-  <div class = "maincontent">
-    {% block content %}
-    {% endblock %}
+  <div class = "wrapper">
+    <div class = "sidebar">
+      <ul class = "menu">
+        <li class = "item"><a href="/admin/">home</a></li>
+        <li class = "item"><a href="/admin/post/">post</a></li>
+        <li class = "item"><a href="/admin/reply/">reply</a></li>
+        <li class = "item"><a href="/admin/media/">media</a></li>
+      </ul>
+    </div>
+    <div class = "maincontent">
+      {% block content %}
+      {% endblock %}
+    </div>
   </div>
 </body>
 </html>
