@@ -4,6 +4,15 @@
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/global.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"> </script>
+  <script>
+    $(document).ready(function() {
+      var placeholdertext = $("label[for='title']").text();
+      $("label[for='title']").remove();
+      $(".title_input").attr('placeholder', placeholdertext).enablePlaceholder();
+      });
+    </script>
+
 </head>
 <body>
   <div class = "header_banner">
