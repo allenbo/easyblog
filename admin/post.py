@@ -57,5 +57,9 @@ def show(request):
   return render(request, 'admin/post_show.html', context)
 
   
-def new(request):
-  pass
+def edit(request):
+  if request.method == 'GET':
+    if 'action' in request.GET:
+      action = request.GET['action']
+      if action == 'add':
+        return render(request, 'admin/post_edit.html')
