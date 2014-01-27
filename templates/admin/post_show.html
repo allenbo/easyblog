@@ -1,0 +1,92 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+  <div class = "content_wrapper">
+    <!-- <div class = "icon post_icon"></div> -->
+    <h2>Post<a href="/admin/post/edit/?action=add" class = "add_new">Add New</a></h2>
+    <ul class = "overall">
+      <li class = "all">
+        <a href="/admin/post/show/">All 
+        <span class = "count">({{num_allpost}})</span>
+        </a>
+         |
+      </li>
+      <li class = "published">
+        <a href ="/admin/post/show/?action=search&published=yes">Published 
+          <span class = "count">({{num_published}})</span>
+        </a>
+         |
+      </li>
+      <li class = "draft">
+        <a href="/admin/post/show/?action=search&draft=yes">Draft 
+          <span class = "count">({{num_draft}})</span>
+        </a>
+      </li>
+    </ul>
+    <form method="get" class = "filter">
+      <p class="search_box text">
+      <input type="hidden" name = "post_state" value="{{post_state}}" ?>
+      <input type="text" class = "text search_text" name = "q" />
+      <input type="submit" class = "button search_button" value = "search posts" />
+      </p>
+      <div class = "tablenav top">
+      </div>
+      <table class = "post" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col" id ="cb" class = "postcol" >
+              <input type="checkbox" name = "select_all_post" />
+            </th>
+            <th scope="col" id = "title" class = "postcol">Title</th>
+            <th scope="col" id = "author" class = "postcol">Author</th>
+            <th scope="col" id = "replies" class ="postcol">Replies</th>
+            <th scope="col" id = "date" class = "postcol">Date</th>
+          </tr>
+        </thead>
+        <tbody class = "posts">
+          {% for post in posts %}
+          <tr>
+            <th scope="row" class = "check-bottom">
+              <input type="checkbox" name="post_id" value="{{post.id}}"/>
+            </th>
+            <td class = "postcol post_title">
+              <strong>
+                <a href="/admin/post/edit/?action=edit&id={{post.id}}" class = "row_title">
+                  {{post.title}}</a>
+                {% if not post.published %} - <span class = "post-state">Draft</span>{% endif %}
+              </strong>
+              <div class = "row_action">
+                <span class = "edit">
+                  <a href="/admin/post/edit/?action=edit&id={{post.id}}">Edit</a>
+                   | 
+                </span>
+                <span class = "delete">
+                  <a href="/admin/post/delete/?action=delete&id={{post.id}}">Delete</a>
+                   | 
+                </span>
+                <span class = "preview">
+                  <a href="{{post.get_abs_url}}">Preview</a>
+                </span>
+              </div>
+            </td>
+            <td class = "postcol post_author">
+              {{post.author}}
+            </td>
+            <td class = "postcol post_replies">
+              <a href="/admin/reply/show/?action=search&post_id={{post.id}}">{{post.get_reply_num}}</a>
+            </td>
+            <td class = "postcol post_date">
+              {{post.created_date|date}}
+              <br />
+              {% if post.published %}Published{% else %}Last Modified{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <div class = "clear"></div>
+{% endblock %}

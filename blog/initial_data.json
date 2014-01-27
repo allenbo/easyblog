@@ -1,0 +1,16 @@
+[
+  {
+    "model":"blog.Category",
+    "pk":1,
+    "fields": {
+      "name":"Uncategoried"
+    }
+  },
+  {
+    "model":"blog.Category",
+    "pk":2,
+    "fields": {
+      "name":"Programming"
+    }
+  }
+]

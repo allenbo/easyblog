@@ -1,0 +1,115 @@
+{% extends "admin/base.html" %}
+{% block title %}Post Editor{% endblock %}
+
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}TinyEditor/style.css" />
+  <script type="text/javascript" src="{{STATIC_URL}}TinyEditor/tinyeditor.js" > </script>
+  <div class = "content_wrapper">
+    <h2>{% if post %}Edit Post<a href="/admin/post/edit/?action=add" class = "add_new">Add New</a>
+    {% else %}Add New Post{% endif %}</h2>
+    <form name = "post" action="{% if not post %}/admin/post/add/{% else %}/admin/post/modify/{% endif %}" method="post" id = "post" onsubmit="x.post()">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{% if post %}{{post.id}}{% endif %}" />
+      <div class="postbody">
+        <div class = "post-body-content">
+          <div class = "titlebar">
+            <div class = "titlewrapper">
+              {% if not post %}
+              <label class = "title_prompt_text" for="title">Enter title here</label>
+              {% endif %}
+              <input class = "title_input" type="text" size="30" name="post_title" value = "{% if post %}{{post.title}}{% endif %}" />
+            </div>
+            <div class = "inside">
+            </div>
+          </div>
+          <div class = "editorwrapper">
+            <div class = "add_media_wrapper">
+              <a href = "#" class = "button add_media">
+                Add Media
+              </a>
+            </div>
+            <div class = "richeditor">
+              <textarea id="input" style="width:400px; height:200px" name = "content">{% if post %}{{post.content}}{% endif %}</textarea>
+              <script type="text/javascript">
+                var x =  new TINY.editor.edit('editor', {
+                    id:'input',
+                    width:700,
+                    height:400,
+                    cssclass:'te',
+                    controlclass:'tecontrol',
+                    rowclass:'teheader',
+                    dividerclass:'tedivider',
+                    controls:['bold','italic','underline','strikethrough','|','subscript','superscript','|',
+                                        'orderedlist','unorderedlist','|','outdent','indent','|','leftalign',
+                                        'centeralign','rightalign','blockjustify','|','unformat','|','undo','redo','n',
+                                        'font','size','style','|','image','hr','link','unlink','|','cut','copy','paste','print'],
+                    footer:true,
+                    fonts:['Verdana','Arial','Georgia','Trebuchet MS'],
+                    xhtml:true,
+                    cssfile:'style.css',
+                    bodyid:'editor',
+                    footerclass:'tefooter',
+                    toggle:{text:'show source',activetext:'show wysiwyg',cssclass:'toggle'},
+                    resize:{cssclass:'resize'}
+                    });
+                {% if post %}x.setinit();{% endif %}
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class = "postbox-container">
+
+          <div class = "postbox" id="submitdiv">
+            <h3 class = "box_title"><span>Publish</span></h3>
+            <div class = "inside">
+              <div class = "submitbox">
+                <div id="publishing">
+                  <div class = "save_action">
+                    <input type="submit" name="published" value="Save Draft" class = "button" id="save_post" />
+                  </div>
+                  <div class = "preview_action">
+                    <a class = "preview button" href = "&preview=true">Preview</a>
+                  </div>
+                  <br class = "clear" />
+                </div>
+                <div id="publishing_action">
+                  <div id="delete_action">
+                    {% if post %}
+                    <a href="/admin/post/delete/?action=delete&id={{post.id}}" class = "deletion">Move to Trash</a>
+                    {% else %}
+                    <a href="/admin/post/error/?error=nopostdel" class = "deletion">Move to Trash</a>
+                    {% endif %}
+                  </div>
+                  <div id="publish_action">
+                    <input type="submit" name="published" value = "Publish" class = "button button_large"  />
+                  </div>
+                  <br class = "clear"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class = "postbox" id="categorydiv">
+            <h3 class = "boxtitle"><span>Category</span></h3>
+            <div class = "inside">
+              <div class = "categorybox">
+                <div class = "categorylist">
+                  {% for category in categories %}
+                  <div class = "listitem">
+                    <input type="radio" name="category" value="{{category.name}}" class ="category_item" {% if post and  post.category == category  or forloop.first %}checked {% endif %}/><span>{{category.name}}</span>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+
+  </div>
+{% endblock %}
