@@ -7,6 +7,10 @@ urlpatterns = patterns('',
     url(r'^post/$', 'admin.post.show'),
     url(r'^post/show/$', 'admin.post.show'),
     url(r'^post/edit/$', 'admin.post.edit'),
+    url(r'^post/add/$', 'admin.post.add'),
+    url(r'^post/modify/$', 'admin.post.modify'),
+    url(r'^post/delete/$', 'admin.post.delete'),
+
     url(r'^media/$', 'admin.media.show'),
     url(r'^reply/$', 'admin.reply.show'),
 )

@@ -1,5 +1,6 @@
 from blog.models import Post, Reply, Category
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 
 def get_posts_from_action(request):
   post_state = 'all'
@@ -58,8 +59,79 @@ def show(request):
 
   
 def edit(request):
+  context = {}
+  context['categories'] = Category.objects.all()
+  errors = []
   if request.method == 'GET':
     if 'action' in request.GET:
       action = request.GET['action']
       if action == 'add':
-        return render(request, 'admin/post_edit.html')
+        return render(request, 'admin/post_edit.html', context)
+      elif action == 'edit':
+        if 'id' in request.GET and request.GET['id']:
+          post = Post.objects.get(id = request.GET['id'])
+          if not post:
+            return render(request, 'admin/erorr.html', {'errors':errors})
+          context['post'] = post
+          return render(request, 'admin/post_edit.html', context)
+  else:
+    return render(request, 'admin/error.html', {'errors':errors})
+
+
+def check_edit_post_param(dic):
+  if not dic.get('post_title', ''):
+    return False
+
+  if not dic.get('content', ''):
+    return False
+
+  if not dic.get('category', ''):
+    return False
+
+  if dic.get('published', '') not in ('Save Draft', 'Publish'):
+    return False
+
+  return True
+
+def add(request):
+  if request.method == 'POST':
+    if check_edit_post_param(request.method):
+      Post.insert_from_dic(request.POST)
+      return HttpResponseRedirect('/admin/post/' )
+  errors = []
+  return HttpResponse(request, 'admin/error.html', {'errors':errors})
+
+def modify(request):
+  errors = []
+  if request.method == 'POST':
+    dic = request.POST
+    print dic
+    post_id = dic['id']
+    post = Post.objects.get(id = post_id)
+
+    if not post:
+      errors = []
+      return render(request, 'admin/error.html', {'errors':errors})
+
+    if check_edit_post_param(request.POST):
+      post.modify_from_dic(request.POST)
+      return HttpResponseRedirect('/admin/post/' )
+  return HttpResponse(request, 'admin/error.html', {'errors':errors})
+
+
+
+def delete(request):
+  errors = []
+  if request.method == 'GET':
+    dic = request.GET
+    if dic.get('action', '') == 'delete' and dic.get('id', ''):
+      id = dic['id']
+      
+      print 'get id =', id
+      post = Post.objects.get(id = id)
+
+      if post:
+        post.delete()
+        return HttpResponseRedirect('/admin/post/')
+  
+  return render(request, 'admin/error.html', {'errors':errors})

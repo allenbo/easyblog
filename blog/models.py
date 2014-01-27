@@ -11,13 +11,17 @@ class Category(models.Model):
     return Category.objects.filter(name = self.name).count()
 
 
+class Tag(models.Model):
+  name = models.CharField(max_length=100)
+
 class Post(models.Model):
   title = models.CharField(max_length=100)
-  slug = models.SlugField(max_length = 100)
   content = models.TextField()
+  author = models.CharField(max_length=100)
   published = models.BooleanField(default = False)
   created_date = models.DateTimeField(auto_now_add = True)
-  category = models.ManyToManyField(Category)
+  category = models.ForeignKey(Category)
+  tags = models.ManyToManyField(Tag)
   visit = models.IntegerField()
 
 
@@ -53,6 +57,34 @@ class Post(models.Model):
   @staticmethod
   def get_archive():
     return Post.objects.values('created_date').distinct()
+
+  @staticmethod
+  def insert_from_dic(dic):
+    published = True if dic.get('published', 'Publish') == 'Publish' else False
+    cate = Category.objects.get(name = dic['category'])
+    if not cate:
+      cate = Category.objects.get(name == 'Uncategoried')
+    post = {'title':dic['post_title'], 'author':'admin', 'published':published, 'category': cate,
+        'content':dic['content']}
+    post['created_date'] = dic.get('created_date', datetime.now())
+    post['visit'] = 0
+    p = Post(**post)
+    p.save()
+
+
+  def modify_from_dic(self, dic):
+    published = True if dic.get('published', 'Publish') == 'Publish' else False
+    cate = Category.objects.get(name = dic['category'])
+    if not cate:
+      cate = Category.objects.get(name == 'Uncategoried')
+
+    self.title = dic['post_title']
+    self.content = dic['content']
+    self.author = 'admin'
+    self.published = published
+    self.category = cate
+    self.save()
+
 
 
 

@@ -37,7 +37,7 @@ input[type="text"] {
 table {
   border-radius:3px;
   background-color:#f9f9f9;
-  border-collapse:separate;
+  border-collapse:collapse;
   border-spacing:0px;
   border-color:#dfdfdf;
 }
@@ -162,6 +162,7 @@ p.search_box {
 
 table.post {
   width:100%;
+  font-weight:normal;
   display:table;
   overflow:auto;
   margin:0;
@@ -179,13 +180,21 @@ table.post thead th {
   background-image:linear-gradient(to top, #ececec, #f9f9f9);
 }
 
-table.post td {
+
+table.post td{
   font-weight:normal;
+  border-bottom:1px solid #dfdfdf;
 }
 
+span.post-state {
+  font-size:14px;
+  font-weight:normal;
+  color:#666;
+}
+
+
 table.post th {
-  border-top-color:#fff;
-  border-bottom-color:#dfdfdf;
+  border-bottom:1px solid #dfdfdf;
   line-height:1.3em;
   font-size:14px;
   text-align:left;
@@ -366,4 +375,22 @@ table.post .post_date {
   background:-moz-linear-gradient(top, rgb(51, 188, 239), rgb(1, 154, 210));
   border:1px solid rgb(5, 126, 208);
   height:30px;
+}
+
+
+.categorylist {
+  margin:8px;
+  background-color:#ffffff;
+  border:1px solid #bbb;
+  border-radius:3px;
+}
+
+.categorylist .listitem {
+  margin:6px;
+}
+
+.categorylist span {
+  font-weight:normal;
+  font-size:14px;
+  padding-left:6px;
 }

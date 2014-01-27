@@ -202,6 +202,10 @@ TINY.editor=function(){
   edit.prototype.post=function(){
     if(this.d){this.toggle(1)}
   };
+
+  edit.prototype.setinit = function() {
+    this.e.body.innerHTML = this.t.innerHTML;
+  };
   return{edit:edit}
 }();
 
