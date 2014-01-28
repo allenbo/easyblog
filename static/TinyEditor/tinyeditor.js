@@ -201,10 +201,10 @@ TINY.editor=function(){
   },
   edit.prototype.post=function(){
     if(this.d){this.toggle(1)}
-  };
+  },
 
   edit.prototype.setinit = function() {
-    this.e.body.innerHTML = this.t.innerHTML;
+    this.e.body.innerHTML = this.t.getAttribute("value");
   };
   return{edit:edit}
 }();

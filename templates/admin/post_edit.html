@@ -30,7 +30,7 @@
               </a>
             </div>
             <div class = "richeditor">
-              <textarea id="input" style="width:400px; height:200px" name = "content">{% if post %}{{post.content}}{% endif %}</textarea>
+              <textarea id="input" style="width:400px; height:200px" name = "content" value = "{% if post %}{{post.content|safe}}{% endif %}"></textarea>
               <script type="text/javascript">
                 var x =  new TINY.editor.edit('editor', {
                     id:'input',

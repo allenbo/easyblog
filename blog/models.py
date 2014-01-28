@@ -70,6 +70,7 @@ class Post(models.Model):
     post['visit'] = 0
     p = Post(**post)
     p.save()
+    return self.id
 
 
   def modify_from_dic(self, dic):
@@ -84,6 +85,7 @@ class Post(models.Model):
     self.published = published
     self.category = cate
     self.save()
+
 
 
 

@@ -8,7 +8,7 @@
     <div class = "title">
       <h3>
         <a href="{{ post.get_abs_url }} " >
-        {{ post.title }}
+        {{ post.title|safe }}
         </a>
       </h3>
     </div>
@@ -21,7 +21,7 @@
       </span>
     </div>
     <div class = "blog_content">
-      <p>{{ post.content|slice:":255" }}</p>
+      <p>{{ post.content|slice:":255"|safe }}</p>
     </div>
     <div class ="footer">
       <p>This entry is posted on <a href="/blog/{{post.created_date|date:"Y"}}/{{post.created_date|date:"m"}}/{{post.created_date|date:"d"}}/">

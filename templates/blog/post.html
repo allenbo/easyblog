@@ -16,7 +16,7 @@
     </span>
   </div>
   <div class = "blog_content">
-    <p>{{ post.content }}</p>
+    <p>{{ post.content|safe }}</p>
   </div>
   <div class ="footer">
     <p>This entry is posted on <a href="/blog/{{post.created_date|date:"Y"}}/{{post.created_date|date:"m"}}/{{post.created_date|date:"d"}}/">

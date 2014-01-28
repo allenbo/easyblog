@@ -73,6 +73,7 @@ def edit(request):
           if not post:
             return render(request, 'admin/erorr.html', {'errors':errors})
           context['post'] = post
+          print post.content
           return render(request, 'admin/post_edit.html', context)
   else:
     return render(request, 'admin/error.html', {'errors':errors})
@@ -95,9 +96,12 @@ def check_edit_post_param(dic):
 
 def add(request):
   if request.method == 'POST':
-    if check_edit_post_param(request.method):
-      Post.insert_from_dic(request.POST)
-      return HttpResponseRedirect('/admin/post/' )
+    if check_edit_post_param(request.POST):
+      id = Post.insert_from_dic(request.POST)
+      link = '/admin/post'
+      if request.POST['published'] == 'Save Draft':
+        link = '/admin/post/edit/?action=edit&id=%d' % id
+      return HttpResponseRedirect(link)
   errors = []
   return HttpResponse(request, 'admin/error.html', {'errors':errors})
 
@@ -105,7 +109,7 @@ def modify(request):
   errors = []
   if request.method == 'POST':
     dic = request.POST
-    print dic
+    print dic['content']
     post_id = dic['id']
     post = Post.objects.get(id = post_id)
 
@@ -115,7 +119,10 @@ def modify(request):
 
     if check_edit_post_param(request.POST):
       post.modify_from_dic(request.POST)
-      return HttpResponseRedirect('/admin/post/' )
+      link = '/admin/post/'
+      if request.POST['published'] == 'Save Draft':
+        link = '/admin/post/edit/?action=edit&id=%d' % post.id
+      return HttpResponseRedirect(link)
   return HttpResponse(request, 'admin/error.html', {'errors':errors})
 
 
