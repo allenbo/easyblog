@@ -17,17 +17,30 @@ def index(request):
     'recent_reply':recent_reply, 'categories': categories, 'archives':archives})
 
 def post(request, mangled):
-  title = mangled.replace('__', ' ')
-  post = Post.objects.get(title = title)
-  post.visit += 1
-  post.save()
+  preview = None
+  if mangled:
+    title = mangled.replace('__', ' ')
+    post = Post.objects.get(title = title)
+    post.visit += 1
+    post.save()
+  else:
+    errors = []
+    if request.method == 'GET' and request.GET.get('id', ''):
+      id = request.GET['id']
+      post = Post.objects.get(id = id)
+      
+      if not post or post.published == True:
+        return render(request, 'admin/error.html', {'errors':errors})
+      preview = True
+    else:
+      return render(request, 'admin/error.html', {'errors':errors})
   replies = Reply.objects.filter(post = post)
   categories = Category.objects.all()
   form = ReplyForm(initial = {'blog_id':post.id})
   recent_post = Post.objects.first()
   recent_reply = Reply.objects.first()
   archives = Post.get_archive()
-  return render(request, 'blog/post.html', { 'post': post, 'recent_post':recent_post,
+  return render(request, 'blog/post.html', {'preview':preview, 'post': post, 'recent_post':recent_post,
     'recent_reply':recent_reply, 'form': form, 'replies': replies, 'categories': categories,
     'archives':archives} )
 

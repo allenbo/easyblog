@@ -7,6 +7,9 @@
   <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}post.css" />
 </head>
 <body style="color:#444;background-color:#e6e6e6;font-family:sans-serif">
+  {% if preview %}
+  {% include "admin/admin_header.html" %}
+  {% endif %}
   <div class="page">
     <div class="header">
       <h1 class="blog-title">Justin's Thoughts</h1>

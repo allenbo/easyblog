@@ -70,7 +70,8 @@ class Post(models.Model):
     post['visit'] = 0
     p = Post(**post)
     p.save()
-    return self.id
+    
+    return p.id
 
 
   def modify_from_dic(self, dic):

@@ -69,7 +69,11 @@
                     <input type="submit" name="published" value="Save Draft" class = "button" id="save_post" />
                   </div>
                   <div class = "preview_action">
-                    <a class = "preview button" href = "&preview=true">Preview</a>
+                    {% if post %}
+                    <a class = "preview button" href = "/blog/preview/?id={{post.id}}">Preview</a>
+                    {% else %}
+                    <a class = "preview button blur" href ="javascript: void(0)">Preview</a>
+                    {% endif %}
                   </div>
                   <br class = "clear" />
                 </div>
