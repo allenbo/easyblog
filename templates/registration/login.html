@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>User Login</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"> </script>
+  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/global.css" />
+
+</head>
+
+<body>
+  <div class = "login_div">
+    {% if form.errors %}
+    <p class="error">Sorry, that’s not a valid username or password</p>
+    {% endif %}
+    <form action="" method="post" class="login_form">
+      {% csrf_token %}
+      <p>
+      <label for="username" class="label_text_large">Username: <br />
+        <input type="text" name="username" value="" id="username" class = "text_large" size="20"/></label></p>
+      <p><label for="password" class ="label_text_large">Password: <br />
+        <input type="password" name="password" value="" id="password" class ="text_large"></label></p>
+      <p><input type="submit" value="login" class = "button_large login"/> </p>
+      <p><input type="hidden" name="next" value="{{ next|escape }}" /></p>
+    </form>
+  </div>
+</body>

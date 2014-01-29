@@ -1,6 +1,7 @@
 from blog.models import Post, Reply, Category
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 def get_posts_from_action(request):
   post_state = 'all'
@@ -24,6 +25,7 @@ def get_posts_from_state(post_state, **kw):
   else:
     return Post.objects.filter(**kw)
 
+@login_required
 def show(request):
   allpost = Post.objects.count()
   published = Post.objects.filter(published = True).count()
@@ -58,6 +60,7 @@ def show(request):
   return render(request, 'admin/post_show.html', context)
 
   
+@login_required
 def edit(request):
   context = {}
   context['categories'] = Category.objects.all()
@@ -94,6 +97,7 @@ def check_edit_post_param(dic):
 
   return True
 
+@login_required
 def add(request):
   if request.method == 'POST':
     if check_edit_post_param(request.POST):
@@ -105,6 +109,7 @@ def add(request):
   errors = []
   return HttpResponse(request, 'admin/error.html', {'errors':errors})
 
+@login_required
 def modify(request):
   errors = []
   if request.method == 'POST':
@@ -127,6 +132,7 @@ def modify(request):
 
 
 
+@login_required
 def delete(request):
   errors = []
   if request.method == 'GET':

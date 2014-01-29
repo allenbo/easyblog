@@ -27,10 +27,11 @@ input, select {
   border-style:solid;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
   border-color:#dfdfdf;
   background-color:#fff;
   color:#333;
+  margin-left:0;
 }
 
 
@@ -397,4 +398,49 @@ table.post .post_date {
   font-weight:normal;
   font-size:14px;
   padding-left:6px;
+}
+
+
+.login_div {
+  padding-top:2em;
+  width:320px;
+  margin:0 auto;
+}
+
+.login_div * {
+  padding:0;
+}
+.login_form {
+  border:1px solid #e5e5e5;
+  background-color:#fff;
+  padding:24px 26px 46px 26px;
+  -webkit-box-shadow:rgba(200, 200, 200, 0.7) 0 4px 10px -1px;
+  box-shadow:rgba(200, 200, 200, 0.7) 0 4px 10px -1px;
+}
+
+.label_text_large {
+  font-weight:normal;
+  font-size:14px;
+  color:#777;
+  line-height:1.4em;
+}
+
+.text_large {
+  display:inline-block;
+  font-size:24px;
+  height:30px;
+  width:100%;
+  padding:3px;
+  margin:2px 6px 12px 0;
+}
+
+
+.login_div form p {
+  margin:0;
+}
+
+.login_div .button_large {
+  float:right;
+  padding-left:4px;
+  padding-right:4px;
 }
