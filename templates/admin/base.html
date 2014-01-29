@@ -20,12 +20,12 @@
     <div class = "sidebar">
       <ul class = "menu">
         <li class = "item"><a href="/admin/" {% if request.path == "/admin/" %}class = "selected_link" {% endif %}>home</a></li>
-        <li class = "item"><a href="/admin/post/"{% if request.path == "/admin/post/" %}class = "selected_link" {% endif %}>post</a></li>
-        <li class = "item"><a href="/admin/reply/"{% if request.path == "/admin/reply/" %}class = "selected_link" {% endif %}>reply</a></li>
-        <li class = "item"><a href="/admin/media/"{% if request.path == "/admin/media/" %}class = "selected_link" {% endif %}>media</a></li>
-        <li class = "item"><a href="/admin/category/"{% if request.path == "/admin/category/" %}class = "selected_link" {% endif %}>category</a></li>
-        <li class = "item"><a href="/admin/tag/"{% if request.path == "/admin/tag/" %}class = "selected_link" {% endif %}>tag</a></li>
-        <li class = "item"><a href="/admin/user/"{% if request.path == "/admin/user/" %}class = "selected_link" {% endif %}>user</a></li>
+        <li class = "item"><a href="/admin/post/"{% if "/admin/post/" in request.path %}class = "selected_link" {% endif %}>post</a></li>
+        <li class = "item"><a href="/admin/reply/"{% if "/admin/reply/" in request.path %}class = "selected_link" {% endif %}>reply</a></li>
+        <li class = "item"><a href="/admin/media/"{% if "/admin/media/"  in request.path %}class = "selected_link" {% endif %}>media</a></li>
+        <li class = "item"><a href="/admin/category/"{% if "/admin/category/"  in request.path %}class = "selected_link" {% endif %}>category</a></li>
+        <li class = "item"><a href="/admin/tag/"{% if "/admin/tag/"  in request.path %}class = "selected_link" {% endif %}>tag</a></li>
+        <li class = "item"><a href="/admin/user/"{% if "/admin/user/" in request.path %}class = "selected_link" {% endif %}>user</a></li>
       </ul>
     </div>
     <div class = "maincontent">
