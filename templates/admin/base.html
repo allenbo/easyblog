@@ -15,19 +15,26 @@
 
 </head>
 <body>
-  {% include "admin/admin_header.html" %}
+<!-- {% include "admin/admin_header.html" %} -->
   <div class = "wrapper">
     <div class = "sidebar">
       <ul class = "menu">
-        <li class = "item"><a href="/admin/">home</a></li>
-        <li class = "item"><a href="/admin/post/">post</a></li>
-        <li class = "item"><a href="/admin/reply/">reply</a></li>
-        <li class = "item"><a href="/admin/media/">media</a></li>
+        <li class = "item"><a href="/admin/" {% if request.path == "/admin/" %}class = "selected_link" {% endif %}>home</a></li>
+        <li class = "item"><a href="/admin/post/"{% if request.path == "/admin/post/" %}class = "selected_link" {% endif %}>post</a></li>
+        <li class = "item"><a href="/admin/reply/"{% if request.path == "/admin/reply/" %}class = "selected_link" {% endif %}>reply</a></li>
+        <li class = "item"><a href="/admin/media/"{% if request.path == "/admin/media/" %}class = "selected_link" {% endif %}>media</a></li>
+        <li class = "item"><a href="/admin/category/"{% if request.path == "/admin/category/" %}class = "selected_link" {% endif %}>category</a></li>
+        <li class = "item"><a href="/admin/tag/"{% if request.path == "/admin/tag/" %}class = "selected_link" {% endif %}>tag</a></li>
+        <li class = "item"><a href="/admin/user/"{% if request.path == "/admin/user/" %}class = "selected_link" {% endif %}>user</a></li>
       </ul>
     </div>
     <div class = "maincontent">
+      <div class = "header banner">
+      </div>
       {% block content %}
       {% endblock %}
+    </div>
+    <div class = "footer banner">
     </div>
   </div>
 </body>
