@@ -50,8 +50,8 @@ def message(request):
     form = ReplyForm(request.POST)
     if form.is_valid():
       cd = form.cleaned_data
-      Reply.insert_from_form(cd)
-      return HttpResponseRedirect('/blog/%s/' % cd['blog_id'])
+      post, reply = Reply.insert_from_form(cd)
+      return HttpResponseRedirect( post.get_abs_url())
     else:
       pass
   else:

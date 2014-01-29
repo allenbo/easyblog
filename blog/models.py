@@ -33,7 +33,7 @@ class Post(models.Model):
 
   def get_abs_url(self):
     mangled = self.title.replace(' ', '__')
-    return '/blog/%s' % mangled
+    return '/blog/%s/' % mangled
 
   def get_visit_num(self):
     return self.visit
@@ -102,9 +102,12 @@ class Reply(models.Model):
 
   @staticmethod
   def insert_from_form(cd):
-    post = Post.objects.get(id = int(cd['blog_id']))
+    post = Post.objects.get(id = cd['blog_id'])
     date = datetime.now()
-    Reply(name = cd['name'], email = cd['email'], to = '0', message = cd['message'], post = post,
-        date=date).save()
+    reply = Reply(name = cd['name'], email = cd['email'], to = '0', message = cd['message'], post = post,
+        date=date)
+    reply.save()
+
+    return post,reply 
 
   
