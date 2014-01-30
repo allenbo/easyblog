@@ -27,31 +27,31 @@
     </ul>
     <form method="get" class = "filter">
       <p class="search_box text">
-      <input type="hidden" name = "post_state" value="{{post_state}}" ?>
+      <input type="hidden" name = "post_state" value="{{post_state}}" />
       <input type="text" class = "text search_text" name = "q" />
       <input type="submit" class = "button search_button" value = "search posts" />
       </p>
       <div class = "tablenav top">
       </div>
-      <table class = "post" cellspacing="0">
+      <table class = "show" cellspacing="0">
         <thead>
           <tr>
-            <th scope="col" id ="cb" class = "postcol" >
-              <input type="checkbox" name = "select_all_post" />
+            <th scope="col" id ="cb" class = "tablecol" >
+              <input type="checkbox" name = "select_all" />
             </th>
-            <th scope="col" id = "title" class = "postcol">Title</th>
-            <th scope="col" id = "author" class = "postcol">Author</th>
-            <th scope="col" id = "replies" class ="postcol">Replies</th>
-            <th scope="col" id = "date" class = "postcol">Date</th>
+            <th scope="col" id = "title" class = "tablecol">Title</th>
+            <th scope="col" id = "author" class = "tablecol">Author</th>
+            <th scope="col" id = "replies" class ="tablecol">Replies</th>
+            <th scope="col" id = "date" class = "tablecol">Date</th>
           </tr>
         </thead>
         <tbody class = "posts">
           {% for post in posts %}
           <tr>
-            <th scope="row" class = "check-bottom">
+            <th scope="row" class = "check-button">
               <input type="checkbox" name="post_id" value="{{post.id}}"/>
             </th>
-            <td class = "postcol post_title">
+            <td class = "tablecol post_title">
               <strong>
                 <a href="/admin/post/edit/?action=edit&id={{post.id}}" class = "row_title">
                   {{post.title}}</a>
@@ -71,13 +71,13 @@
                 </span>
               </div>
             </td>
-            <td class = "postcol post_author">
+            <td class = "tablecol post_author">
               {{post.author}}
             </td>
-            <td class = "postcol post_replies">
+            <td class = "tablecol post_replies">
               <a href="/admin/reply/show/?action=search&post_id={{post.id}}">{{post.get_reply_num}}</a>
             </td>
-            <td class = "postcol post_date">
+            <td class = "tablecol post_date">
               {{post.created_date|date}}
               <br />
               {% if post.published %}Published{% else %}Last Modified{% endif %}

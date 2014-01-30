@@ -9,7 +9,7 @@ from django.db.models import Q
 def index(request):
   posts = Post.objects.filter(published=True)
   recent_post = Post.objects.first()
-  recent_reply = Reply.objects.first()
+  recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
   categories = Category.objects.all()
   archives = None
   archives = Post.get_archive()
@@ -34,11 +34,11 @@ def post(request, mangled):
       preview = True
     else:
       return render(request, 'admin/error.html', {'errors':errors})
-  replies = Reply.objects.filter(post = post)
+  replies = Reply.objects.filter(post = post, state = Reply.APPROVED)
   categories = Category.objects.all()
   form = ReplyForm(initial = {'blog_id':post.id})
   recent_post = Post.objects.first()
-  recent_reply = Reply.objects.first()
+  recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
   archives = Post.get_archive()
   return render(request, 'blog/post.html', {'preview':preview, 'post': post, 'recent_post':recent_post,
     'recent_reply':recent_reply, 'form': form, 'replies': replies, 'categories': categories,
@@ -61,7 +61,7 @@ def category(request, name):
   cate = Category.objects.get(name = name)
   posts = Post.objects.filter(published=True, category = cate)
   recent_post = Post.objects.first()
-  recent_reply = Reply.objects.first()
+  recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
   categories = Category.objects.all()
   archives = None
   archives = Post.get_archive()
@@ -76,7 +76,7 @@ def search(request):
       q = request.GET['q']
       posts = Post.objects.filter(published = True, content__contains = q)
       recent_post = Post.objects.first()
-      recent_reply = Reply.objects.first()
+      recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
       categories = Category.objects.all()
       archives = None
       archives = Post.get_archive()
@@ -96,7 +96,7 @@ def archive(request, year, month = None):
     posts = Post.objects.filter(published=True, created_date__year = year, created_date__month = month)
   cate = Category.objects.all()
   recent_post = Post.objects.first()
-  recent_reply = Reply.objects.first()
+  recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
   categories = Category.objects.all()
   archives = None
   if posts:
@@ -108,5 +108,5 @@ def archive(request, year, month = None):
 
 def about(request):
   recent_post = Post.objects.first()
-  recent_reply = Reply.objects.first()
+  recent_reply = Reply.objects.filter(state = Reply.APPROVED).first()
   return render(request, 'about.html', {'recent_post': recent_post, 'recent_reply':recent_reply } )

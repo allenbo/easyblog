@@ -3,14 +3,20 @@
     "model":"blog.Category",
     "pk":1,
     "fields": {
-      "name":"Uncategoried"
+      "name":"Uncategoried",
+      "has_parent":0,
+      "parent_id":0,
+      "description":""
     }
   },
   {
     "model":"blog.Category",
     "pk":2,
     "fields": {
-      "name":"Programming"
+      "name":"Programming",
+      "has_parent":0,
+      "parent_id":0,
+      "description":""
     }
   }
 ]

@@ -1,0 +1,140 @@
+{% extends "admin/base.html" %}
+
+
+{% block title %}Reply{% endblock %}
+
+
+{% block content %}
+
+  <div class = "content_wrapper">
+    <h2>Reply</h2>
+
+    <ul class = "overall">
+      <li class = "all">
+        <a href="/admin/reply/show">All
+        </a>
+        |
+      </li>
+      <li class = "pending">
+        <a href="/admin/reply/show/?action=search&state=pending">Pending
+          <span class = "count">({{num_pending}})</span>
+        </a>
+        |
+      </li>
+      <li class = "approved">
+        <a href="/admin/reply/show/?action=search&state=approved">Approved
+          <span class = "count">({{num_approved}})</span>
+        </a>
+        |
+      </li>
+      <li class = "spam">
+        <a href="/admin/reply/show/?action=search&state=spam">Spam
+          <span class = "count">({{num_spam}})</span>
+        </a>
+        |
+      </li>
+      <li class = "trash">
+         <a href="/admin/reply/show/?action=search&state=trash">Trash
+           <span class = "count">({{num_trash}})</span>
+         </a>
+      </li>
+    </ul>
+
+    <form method="get" class = "filter">
+      <p class = "search_box text">
+      <input type="hidden" name="state" value="{{state}}" />
+      <input type="text" class = "text search_text" name = "q" />
+      <input type="submit" class = "butotn search_button" value = "search reply" />
+      </p>
+
+      <div class = "tablenav top">
+      </div>
+      
+
+      <table class = "show" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col" id ="cb" class = "tablecol" >
+              <input type="checkbox" name = "select_all" />
+            </th>
+            <th scope="col" id = "author" class = "tablecol">Author</th>
+            <th scope="col" id = "message" class ="tablecol">Message</th>
+            <th scope="col" id = "post" class = "tablecol">In Response to</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for reply in replies %}
+          <tr>
+            <th scope = "row" class = “check-button">
+              <input type="checkbox" name = "reply_id" value = "{{reply.id}}" />
+            </th>
+            <td class = "tablecol reply_author">
+              <div class = "author_name">
+                <strong>
+                  {{ reply.name }}
+                </strong>
+              </div>
+              <div class = "author_email">
+                <a href = "mailto:{{reply.email}}" target="_top">{{reply.email}}
+                </a>
+              </div>
+            </td>
+
+            <td class = "tablecol reply_message">
+              <div class = "basic_info">
+                Submitted on {{reply.date|date}}
+                {% if reply.to != 0 %}
+                {% with reply_to=reply.replyto %}
+                | In reply to
+                  <a href = "/admin/reply/show/?action=search&name={{reply_to.name}}&email={{reply_to.email}}">
+                  {{reply_to.name}}
+                  </a>
+                {% endwith %}
+                {% endif %}
+              </div>
+              <div class = "plain_text">
+                {{reply.message}}
+              </div>
+              <div class = "row_action">
+                {% if reply.state == "trash" or reply.state == "spam" %}
+                  <span class = "restore">
+                    <a href="/admin/reply/edit/?id={{reply.id}}&action=restore">Restore </a>
+                    |
+                  </span>
+                  <span class = "delete"r>
+                    <a href="/admin/reply/edit/?id={{reply.id}}&action=delete">Detele Permanently</a>
+                  </span>
+                {% else %}
+                  <span class = "_approve">
+                  {% if reply.state == "approved" %}
+                      <a href="/admin/reply/edit/?id={{reply.id}}&action=unapprove">Unapprove</a>
+                  {% else %}
+                      <a href="/admin/reply/edit/?id={{reply.id}}&action=approve">Approve</a>
+                  {% endif %}
+                    |
+                  </span>
+                  <span class = "spam">
+                    <a href="/admin/reply/edit/?id={{reply.id}}&action=spam">Spam</a>
+                    |
+                  </span>
+                  <span class = "trash">
+                    <a href="/admin/reply/edit/?id={{reply.id}}&action=trash">Trash</a>
+                  </span>
+                {% endif %}
+              </div>
+            </td>
+            <td class = "tablecol reply_post">
+              <div>
+                <a href = "/admin/post/edit/?action=edit&id={{reply.post.id}}">{{reply.post.title}}</a>
+              </div>
+              <div>
+                <a href = "{{reply.post.get_abs_url}}">View Post</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+{% endblock %}

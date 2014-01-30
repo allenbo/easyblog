@@ -205,7 +205,7 @@ p.search_box {
   height:33px;
 }
 
-table.post {
+table.show {
   width:100%;
   font-weight:normal;
   display:table;
@@ -217,7 +217,7 @@ table.post {
   word-wrap:break-word;
 }
 
-table.post thead th {
+table.show thead th {
   font-weight:normal;
   padding:10px 0 10px 0;
   color:#333;
@@ -226,7 +226,7 @@ table.post thead th {
 }
 
 
-table.post td{
+table.show td{
   font-weight:normal;
   border-bottom:1px solid #dfdfdf;
 }
@@ -238,41 +238,41 @@ span.post-state {
 }
 
 
-table.post th {
+table.show th {
   border-bottom:1px solid #dfdfdf;
   line-height:1.3em;
   font-size:14px;
   text-align:left;
 }
 
-table.post .postcol  {
+table.show .tablecol  {
   width:2.2em;
   vertical-align:top;
 }
 
-table.post th#cb {
+table.show th#cb {
   width:5px;
 }
 
-table.post th#title {
+table.show th#title {
   width:10%;
 }
 
-table.post tbody {
+table.show tbody {
   display:table-row-group;
 }
 
-table.post strong {
+table.show strong {
   font-weight:bold;
 }
 
-table.post .row_action {
+table.show .row_action {
   font-weight:normal;
   font-size:10px;
 }
 
 
-table.post .post_date {
+table.show .post_date {
   font-style:italic;
   font-weight:normal;
   font-size:14px;
@@ -310,7 +310,7 @@ table.post .post_date {
   padding:3px 8px;
   line-height:100%;
   font-size:1.2em;
-  width:100%;
+  width:98%;
   outline:none;
 }
 .add_media_wrapper .add_media {
