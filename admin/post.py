@@ -101,7 +101,8 @@ def check_edit_post_param(dic):
 def add(request):
   if request.method == 'POST':
     if check_edit_post_param(request.POST):
-      id = Post.insert_from_dic(request.POST)
+      author = request.user
+      id = Post.insert_from_dic(request.POST, author = request.user)
       link = '/admin/post'
       if request.POST['published'] == 'Save Draft':
         link = '/admin/post/edit/?action=edit&id=%d' % id

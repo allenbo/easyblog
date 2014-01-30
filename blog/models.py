@@ -59,12 +59,15 @@ class Post(models.Model):
     return Post.objects.values('created_date').distinct()
 
   @staticmethod
-  def insert_from_dic(dic):
+  def insert_from_dic(dic, author = None):
     published = True if dic.get('published', 'Publish') == 'Publish' else False
     cate = Category.objects.get(name = dic['category'])
     if not cate:
       cate = Category.objects.get(name == 'Uncategoried')
-    post = {'title':dic['post_title'], 'author':'admin', 'published':published, 'category': cate,
+
+    if author is None:
+      author = 'abo'
+    post = {'title':dic['post_title'], 'author': author, 'published':published, 'category': cate,
         'content':dic['content']}
     post['created_date'] = dic.get('created_date', datetime.now())
     post['visit'] = 0
