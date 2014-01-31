@@ -7,6 +7,64 @@
   <div class = "content_wrapper">
     <h2>Category</h2> 
 
+    <div class = "category_edit_div">
+
+    </div>
+    <div class = "category_form_div">
+      <form method = "get" class = "filter">
+        <p class = "search_box text">
+        <input type = "text" class = "text search_text" name = "q" />
+        <input type = "submit" class = "button search_button" value = "search category" />
+        </p>
+
+        <div class = "tablenav top">
+        </div>
+
+
+        <table class = "show" cellspacing = "0">
+          <thead>
+            <tr>
+              <th scope="col" id="cb" class = "tablecol">
+                <input type = "checkbox" name = "select_all" />
+              </th>
+              <th scope="col" id = "name" class = "tablecol">Name</th>
+              <th scope="col" id = "parent" class = "tablecol">Parent</th>
+              <th scope="col" id = "description" class = "tablecol">Description</th>
+              <th scope="col" id = "posts" class = "tablecol">Posts</th>
+            </tr>
+          </thead>
   
+          <tbody>
+          {% for category in categories %}
+            <tr>
+              <th scope="row" class ="check-button">
+                <input type = "checkbox" name = "category_id" value = "{{category.id}}" />
+              </th>
+              <td class = "tablecol category_name">
+                {{category.name}}
+              </td>
+              <td class = "tablecol category_parent">
+                {% if category.has_parent %}
+                  {% with parent=category.get_parent %}
+                  {{ parent.naem }}
+                  {% endwith %}
+                {% else %}
+                  <div class = "noitem">No Parent</div>
+                {% endif %}
+              </td>
+              <td class = "tablecol category_description">
+                <div class = "longitem">
+                  {{ category.description }}
+                </div>
+              </td>
+              <td class = "tablecol category_post">
+                <a href =  "/blog/category/{{category.name}}/">{{category.post|length }}</a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
   </div>
 {% endblock %}

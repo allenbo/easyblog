@@ -10,9 +10,21 @@ class Category(models.Model):
   parent_id = models.IntegerField(blank=True)
   description = models.CharField(max_length = 1000)
 
-  def get_num(self):
-    return Category.objects.filter(name = self.name).count()
 
+  def get_parent(self):
+    if not self.has_parent:
+      return None
+    else:
+      return Category.objects.get(id = self.parent_id)
+
+  @property
+  def post(self):
+    posts = Post.objects.filter(category = self)
+    print posts
+    return posts
+    
+
+  
 
 class Tag(models.Model):
   name = models.CharField(max_length=100)
