@@ -16,25 +16,25 @@
         |
       </li>
       <li class = "pending">
-        <a href="/admin/reply/show/?action=search&state=pending">Pending
+        <a href="/admin/reply/show/?filter=true&state=pending">Pending
           <span class = "count">({{num_pending}})</span>
         </a>
         |
       </li>
       <li class = "approved">
-        <a href="/admin/reply/show/?action=search&state=approved">Approved
+        <a href="/admin/reply/show/?filter=true&state=approved">Approved
           <span class = "count">({{num_approved}})</span>
         </a>
         |
       </li>
       <li class = "spam">
-        <a href="/admin/reply/show/?action=search&state=spam">Spam
+        <a href="/admin/reply/show/?filter=true&state=spam">Spam
           <span class = "count">({{num_spam}})</span>
         </a>
         |
       </li>
       <li class = "trash">
-         <a href="/admin/reply/show/?action=search&state=trash">Trash
+         <a href="/admin/reply/show/?filter=true&state=trash">Trash
            <span class = "count">({{num_trash}})</span>
          </a>
       </li>
@@ -44,7 +44,7 @@
       <p class = "search_box text">
       <input type="hidden" name="state" value="{{state}}" />
       <input type="text" class = "text search_text" name = "q" />
-      <input type="submit" class = "butotn search_button" value = "search reply" />
+      <input type="submit" class = "button search_button" value = "search reply" />
       </p>
 
       <div class = "tablenav top">
@@ -87,7 +87,7 @@
                 {% if reply.to != 0 %}
                 {% with reply_to=reply.replyto %}
                 | In reply to
-                  <a href = "/admin/reply/show/?action=search&name={{reply_to.name}}&email={{reply_to.email}}">
+                  <a href = "/admin/reply/show/?&name={{reply_to.name}}&email={{reply_to.email}}">
                   {{reply_to.name}}
                   </a>
                 {% endwith %}
@@ -97,7 +97,7 @@
                 {{reply.message}}
               </div>
               <div class = "row_action">
-                {% if reply.state == "trash" or reply.state == "spam" %}
+                {% if reply.state == "tr" or reply.state == "sp" %}
                   <span class = "restore">
                     <a href="/admin/reply/edit/?id={{reply.id}}&action=restore">Restore </a>
                     |
@@ -107,10 +107,10 @@
                   </span>
                 {% else %}
                   <span class = "_approve">
-                  {% if reply.state == "approved" %}
-                      <a href="/admin/reply/edit/?id={{reply.id}}&action=unapprove">Unapprove</a>
+                  {% if reply.state == "ap" %}
+                      <a href="/admin/reply/edit/?id={{reply.id}}&action=pending">Unapprove</a>
                   {% else %}
-                      <a href="/admin/reply/edit/?id={{reply.id}}&action=approve">Approve</a>
+                      <a href="/admin/reply/edit/?id={{reply.id}}&action=approved">Approve</a>
                   {% endif %}
                     |
                   </span>

@@ -33,6 +33,7 @@ class Post(models.Model):
   class Meta:
     ordering = ['-created_date']
 
+
   def __unicode__(self):
     return self.title
 
@@ -103,7 +104,7 @@ class Reply(models.Model):
   SPAM = 'sp'
   TRASH = 'tr'
   STATE_CHOICE = (
-      (TRASH, 'unapproved'),
+      (TRASH, 'trash'),
       (APPROVED, 'approved'),
       (PENDING, 'pending'),
       (SPAM, 'spam'),
@@ -116,6 +117,12 @@ class Reply(models.Model):
   date = models.DateTimeField()
   state = models.CharField(max_length = 2, choices = STATE_CHOICE, default = PENDING)
 
+  @staticmethod
+  def state_choice(state):
+    for choice in Reply.STATE_CHOICE:
+      if choice[1] == state:
+        return choice[0]
+    return 'pd'
 
   @staticmethod
   def insert_from_form(cd):
@@ -143,3 +150,10 @@ class Reply(models.Model):
                'num_trash':trash
                }
     return  dic
+
+  def action(self, action):
+    if action == 'delete':
+      self.delete()
+      return
+    self.state = Reply.state_choice(action)
+    self.save()
