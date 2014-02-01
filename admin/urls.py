@@ -16,8 +16,10 @@ urlpatterns = patterns('',
     url(r'reply/show/$', 'admin.reply.show'),
     url(r'reply/edit/$', 'admin.reply.edit'),
 
-    #url(r'^media/$', 'admin.media.show'),
-    #url(r'^reply/$', 'admin.reply.show'),
+    url(r'^media/$', 'admin.media.show'),
+    url(r'^media/show/$', 'admin.media.show'),
+    url(r'^media/upload/$', 'admin.media.upload'),
+    url(r'^media/delete/$', 'admin.media.delete'),
 
     url(r'category/$', 'admin.category.show'),
     url(r'category/show/$', 'admin.category.show'),

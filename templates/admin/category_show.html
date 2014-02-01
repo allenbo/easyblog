@@ -42,11 +42,13 @@
                   <a href = "/admin/category/edit/?action=edit&id={{category.id}}" class = "row_title">
                   {{category.name}}
                   </a>
-
-                  <span class = "action delete">
-                    <a href = "/admin/category/delete/?action=delete&id={{category.id}}">delete</a>
-                  </span>
                 </strong>
+                {% if not forloop.first %}
+                 -
+                <span class = "action delete">
+                  <a href = "/admin/category/delete/?action=delete&id={{category.id}}">delete</a>
+                </span>
+                {% endif %}
               </td>
               <td class = "tablecol category_parent">
                 {% if category.has_parent %}

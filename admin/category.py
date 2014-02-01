@@ -90,6 +90,8 @@ def delete(request):
     dic = request.GET
     if dic.get('action', '') == 'delete' and dic.get('id', ''):
       id = dic['id']
+      if id == '1':
+        return render(request, 'admin/error.html', {'errors':errors})
       category = Category.objects.get(id = id)
       if category:
         category.delete()

@@ -58,7 +58,7 @@ class Post(models.Model):
   author = models.CharField(max_length=100)
   published = models.BooleanField(default = False)
   created_date = models.DateTimeField(auto_now_add = True)
-  category = models.ForeignKey(Category)
+  category = models.ForeignKey(Category, default = 1, on_delete = models.SET_DEFAULT)
   tags = models.ManyToManyField(Tag)
   visit = models.IntegerField()
 
@@ -190,3 +190,20 @@ class Reply(models.Model):
       return
     self.state = Reply.state_choice(action)
     self.save()
+
+
+
+class Media(models.Model):
+  name = models.CharField(max_length = 100)
+  caption = models.CharField(max_length = 100, blank = True)
+  alternative = models.CharField(max_length = 100, blank = True)
+  description =  models.TextField(max_length = 1000, blank = True)
+  attached = models.BooleanField(default = False)
+  post = models.ForeignKey(Post, null = True, blank = True, on_delete = models.SET_NULL)
+  date = models.DateTimeField()
+
+  file = models.FileField(upload_to='images/%Y/%m/%d/')
+
+
+  class Meta:
+    ordering = ['-date']
