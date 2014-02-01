@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+{% block title %}Category Editor{% endblock %}
+
+{% block content %}
+
+<div class = "content_wrapper">
+
+  <h2>{% if category %}Edit Category<a href="/admin/category/edit/?action=add" class = "add_new">Add New</a>
+    {% else %}Add New Category{% endif%}</h2>
+
+  <form name = "category" action = "{%if not category %}/admin/category/add/{% else %}/admin/category/modify/{% endif %}" method = "post" id="post">
+    {% csrf_token %}
+    <input type = "hidden" name = "id" value = "{% if category %}{{category.id}}{% endif %}" />
+
+    <div class = "postbody">
+
+      <div class = "postitem category_name"> 
+        <h3> Name </h3>
+        <input type="text" name = "name" value = "{% if category %}{{category.name}}{% endif %}" class = "text" />
+        <div class = "basic_info">
+          The name is how it appears on your site.
+        </div>
+      </div>
+
+      <div class = "postitem category_parent">
+        <h3>Parent</h3>
+        <select name = "parent">
+          <option value = "-1">None</option>
+          {% with parent=category.get_parent %}
+          {% for cate in categories %}
+          <option value = "{{cate.id}}" {% if parent and parent.id == cate.id %} selected="selected"{% endif %}>{{cate.name}}</option>
+          {% endfor %}
+          {% endwith %}
+        </select>
+        <div class = "basic_info">
+          Category, unlike tag, can have a hierarchy.
+        </div>
+      </div>
+
+
+      <div class = "postitem category_description">
+        <h3>Description</h3>
+        <textarea  name = "description" rows = "10", cols = "20">{% if category %}{{category.description }}{% endif %}
+        </textarea>
+        <div class = "basic_info">
+          The description is not prominent by default.
+        </div>
+      </div>
+
+      <input type="submit" name="add_new" value = "{% if not category %}Add New Category{% else %}Upate Category{% endif %}" class = "button_large" />
+    </div>
+  </form>
+
+</div>
+
+
+{% endblock %}

@@ -5,11 +5,8 @@
 {% block content %}
 
   <div class = "content_wrapper">
-    <h2>Category</h2> 
+    <h2>Category<a href = "/admin/category/edit/?action=add" class = "add_new">Add New</a></h2> 
 
-    <div class = "category_edit_div">
-
-    </div>
     <div class = "category_form_div">
       <form method = "get" class = "filter">
         <p class = "search_box text">
@@ -41,19 +38,27 @@
                 <input type = "checkbox" name = "category_id" value = "{{category.id}}" />
               </th>
               <td class = "tablecol category_name">
-                {{category.name}}
+                <strong>
+                  <a href = "/admin/category/edit/?action=edit&id={{category.id}}" class = "row_title">
+                  {{category.name}}
+                  </a>
+
+                  <span class = "action delete">
+                    <a href = "/admin/category/delete/?action=delete&id={{category.id}}">delete</a>
+                  </span>
+                </strong>
               </td>
               <td class = "tablecol category_parent">
                 {% if category.has_parent %}
                   {% with parent=category.get_parent %}
-                  {{ parent.naem }}
+                  {{ parent.name }}
                   {% endwith %}
                 {% else %}
-                  <div class = "noitem">No Parent</div>
+                  <div class = "noitem basic_info">No Parent</div>
                 {% endif %}
               </td>
               <td class = "tablecol category_description">
-                <div class = "longitem">
+                <div class = "longitem basic_info">
                   {{ category.description }}
                 </div>
               </td>

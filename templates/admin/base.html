@@ -19,13 +19,12 @@
   <div class = "wrapper">
     <div class = "sidebar">
       <ul class = "menu">
-        <li class = "item"><a href="/admin/" {% if request.path == "/admin/" %}class = "selected_link" {% endif %}>home</a></li>
+        <li class = "item"><a href="/admin/"{% if "/admin/" == request.path %}class = "selected_link" {% endif %}>home</a></li>
         <li class = "item"><a href="/admin/post/"{% if "/admin/post/" in request.path %}class = "selected_link" {% endif %}>post</a></li>
         <li class = "item"><a href="/admin/reply/"{% if "/admin/reply/" in request.path %}class = "selected_link" {% endif %}>reply</a></li>
         <li class = "item"><a href="/admin/media/"{% if "/admin/media/"  in request.path %}class = "selected_link" {% endif %}>media</a></li>
         <li class = "item"><a href="/admin/category/"{% if "/admin/category/"  in request.path %}class = "selected_link" {% endif %}>category</a></li>
         <li class = "item"><a href="/admin/tag/"{% if "/admin/tag/"  in request.path %}class = "selected_link" {% endif %}>tag</a></li>
-        <li class = "item"><a href="/admin/user/"{% if "/admin/user/" in request.path %}class = "selected_link" {% endif %}>user</a></li>
       </ul>
     </div>
     <div class = "maincontent">

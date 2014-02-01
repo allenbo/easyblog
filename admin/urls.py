@@ -12,15 +12,18 @@ urlpatterns = patterns('',
     url(r'^post/modify/$', 'admin.post.modify'),
     url(r'^post/delete/$', 'admin.post.delete'),
 
-    #url(r'reply/$', 'admin.reply.show'),
-    #url(r'reply/show/$', 'admin.reply.show'),
-    #url(r'reply/edit/$', 'admin.reply.edit'),
+    url(r'reply/$', 'admin.reply.show'),
+    url(r'reply/show/$', 'admin.reply.show'),
+    url(r'reply/edit/$', 'admin.reply.edit'),
 
     #url(r'^media/$', 'admin.media.show'),
     #url(r'^reply/$', 'admin.reply.show'),
 
     url(r'category/$', 'admin.category.show'),
     url(r'category/show/$', 'admin.category.show'),
+    url(r'category/edit/$', 'admin.category.edit'),
     url(r'category/add/$', 'admin.category.add'),
+    url(r'category/modify/$', 'admin.category.modify'),
+    url(r'category/delete/$', 'admin.category.delete'),
 )
 

@@ -76,7 +76,6 @@ def edit(request):
           if not post:
             return render(request, 'admin/erorr.html', {'errors':errors})
           context['post'] = post
-          print post.content
           return render(request, 'admin/post_edit.html', context)
   else:
     return render(request, 'admin/error.html', {'errors':errors})
@@ -108,28 +107,24 @@ def add(request):
         link = '/admin/post/edit/?action=edit&id=%d' % id
       return HttpResponseRedirect(link)
   errors = []
-  return HttpResponse(request, 'admin/error.html', {'errors':errors})
+  return render(request, 'admin/error.html', {'errors':errors})
 
 @login_required
 def modify(request):
   errors = []
   if request.method == 'POST':
     dic = request.POST
-    print dic['content']
-    post_id = dic['id']
-    post = Post.objects.get(id = post_id)
-
-    if not post:
-      errors = []
-      return render(request, 'admin/error.html', {'errors':errors})
-
     if check_edit_post_param(request.POST):
-      post.modify_from_dic(request.POST)
-      link = '/admin/post/'
-      if request.POST['published'] == 'Save Draft':
-        link = '/admin/post/edit/?action=edit&id=%d' % post.id
-      return HttpResponseRedirect(link)
-  return HttpResponse(request, 'admin/error.html', {'errors':errors})
+      post_id = dic.get('id', '')
+      post = Post.objects.get(id = post_id)
+
+      if post:
+        post.modify_from_dic(request.POST)
+        link = '/admin/post/'
+        if request.POST['published'] == 'Save Draft':
+          link = '/admin/post/edit/?action=edit&id=%d' % post.id
+        return HttpResponseRedirect(link)
+  return render(request, 'admin/error.html', {'errors':errors})
 
 
 
@@ -140,8 +135,6 @@ def delete(request):
     dic = request.GET
     if dic.get('action', '') == 'delete' and dic.get('id', ''):
       id = dic['id']
-      
-      print 'get id =', id
       post = Post.objects.get(id = id)
 
       if post:

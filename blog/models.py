@@ -19,12 +19,33 @@ class Category(models.Model):
 
   @property
   def post(self):
-    posts = Post.objects.filter(category = self)
-    print posts
-    return posts
+    return Post.objects.filter(category = self)
+    
+  @staticmethod
+  def insert_from_dic(dic):
+    parent = int(dic['parent'])
+    if parent == -1:
+      has_parent = 0
+    else:
+      has_parent = 1
+    name = dic['name']
+    description = dic['description']
+
+    Category(name = name, has_parent = has_parent, parent_id = parent, description = description ).save()
+
+
+  def modify_from_dic(self, dic):
+    parent = int(dic['parent'])
+    if parent == -1:
+      self.has_parent = 0
+    else:
+      self.has_parent = 1
+      self.parent_id = parent
+    self.name = dic['name']
+    self.description = dic['description']
+    self.save()
     
 
-  
 
 class Tag(models.Model):
   name = models.CharField(max_length=100)
@@ -57,7 +78,7 @@ class Post(models.Model):
     return self.visit
 
   def get_reply_num(self):
-    return Reply.objects.filter(post = self).count()
+    return Reply.objects.filter(post = self, state = Reply.APPROVED).count()
 
 
   def get_prev_post(self):
