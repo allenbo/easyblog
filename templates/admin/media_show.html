@@ -5,8 +5,133 @@
 
 {% block content %}
 
+<div class= "content_wrapper">
+
+  <h2>Media Library<a href="/admin/media/upload/" class = "add_new">Add New</a></h2>
+
+  <ul class ="overall" >
+    <li class = "all">
+      <a href="/amin/media/show/">All
+        <span class = "count">({{num_allimage}})</span>
+      </a>
+      |
+    </li>
+
+
+    <li class = "image">
+      <a href="/admin/media/show/filter=true&attached=true">Image
+        <span class = "count">({{num_attached}})</span>
+      </a>
+      |
+    </li>
+
+
+    <li class = "unattached">
+      <a href="/admin/media/show/filter=true&attached=false">Unattached
+        <span class = "count">({{num_unattached}})</span>
+      </a>
+    </li>
+  </ul>
+
+
+  <form method="get" class ="filter">
+    <p class = "search_box text">
+    <input type = "hidden" name = "attached" value = "{{attached}}" />
+    <input type = "text" class= "text search_text" name ="q" />
+    <input type = "submit" class = "button search_button" value = "search media" />
+    </p>
+
+
+    <div class = "tablenav top">
+    </div>
 
 
 
+    <table class = "show" cellspacing = "0">
+        <thead>
+          <tr>
+            <th scope="col" id ="cb" class = "tablecol" >
+              <input type="checkbox" name = "select_all" />
+            </th>
+            <th scope="col" id = "icon" class = "tablecol">icon</th>
+            <th scope="col" id = "file" class = "tablecol">File</th>
+            <th scope="col" id = "post" class ="tablecol">Upload To</th>
+            <th scope="col" id = "alternative" class ="tablecol">Alternative</th>
+            <th scope="col" id = "description" class ="tablecol">Description</th>
+            <th scope="col" id = "date" class = "tablecol">Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for media in medias %}
+          <tr>
+            <th scope = "row" class = “check-button">
+              <input type="checkbox" name = "media_id" value = "{{media.id}}" />
+            </th>
+
+
+            <td class = "tablecol media_icon">
+              <a href = "/admin/media/edit/?action=edit&id={{media.id}}"><img src="{{media.get_icon_url}}" /></a>
+            </td>
+
+            <td class = "tablecol media_file">
+              <strong>
+                <a href = "/admin/media/edit/?action=edit&id={{media.id}}" class = "row_title">
+                  {{media.name}}
+                </a>
+              </strong>
+              <div class = "item_type">
+                {{media.get_ext}}
+              </div>
+
+              <div class = "row_action">
+                <span class = "edit">
+                  <a href = "/admin/media/edit/?action=edit&id={{media.id}}">Edit</a>
+                  |
+                </span>
+
+                <span class = "delete">
+                  <a href ="/admin/media/edit/?action=delete&id={{media.id}}">Delete Permanently</a>
+                </span>
+              </div>
+            </td>
+
+            <td class = "tablecol media_post">
+              {% if media.attached %}
+              <a href="/admin/post/edit/?action=edit&id={{media.post.id}}">{{media.post.name}}</a>
+              {% else %}
+              <div class = "basic_info">
+                unattached
+              </div>
+              {% endif %}
+            </td>
+
+            <td class = "tablecol media_alternative">
+              <div class = "basic_info">
+                {{media.alternative}}
+              </div>
+            </td>
+
+
+            <td class = "tablecol media_description">
+              <div class = "basic_info">
+                {{media.description}}
+              </div>
+            </td>
+
+
+            <td class = "tablecol media_date">
+              <div class = "basic_info">
+                {{media.date|date}}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+    </table>
+  </form>
+
+</div>
 
 {% endblock %}

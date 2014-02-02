@@ -1,5 +1,8 @@
 from django.db import models
 from datetime import datetime
+from easyblog.settings import ROOT_DIR, MEDIA_URL
+import os
+import Image
 
 # Create your models here.
 
@@ -191,6 +194,9 @@ class Reply(models.Model):
     self.state = Reply.state_choice(action)
     self.save()
 
+def to_icon(url):
+  icon_url = '_icon.'.join(url.rsplit('.', 1))
+  return icon_url
 
 
 class Media(models.Model):
@@ -199,11 +205,41 @@ class Media(models.Model):
   alternative = models.CharField(max_length = 100, blank = True)
   description =  models.TextField(max_length = 1000, blank = True)
   attached = models.BooleanField(default = False)
-  post = models.ForeignKey(Post, null = True, blank = True, on_delete = models.SET_NULL)
-  date = models.DateTimeField()
-
-  file = models.FileField(upload_to='images/%Y/%m/%d/')
+  post = models.ForeignKey(Post, null = True, blank = True, default = None, on_delete = models.SET_NULL)
+  date = models.DateTimeField(default = datetime.now)
+  file = models.ImageField(upload_to="images/%Y/%m/%d/")
 
 
   class Meta:
     ordering = ['-date']
+
+
+  
+  def generate_icon(self):
+    img = Image.open(os.path.join(ROOT_DIR, MEDIA_URL[1:], self.file.name))
+    width, height = img.size
+
+    radio = height / 32.0 if height > width else width / 32.0
+
+    height, width = int (height / radio), int(width/radio)
+    img = img.resize((width, height), Image.ANTIALIAS)
+    icon_name = to_icon(self.file.name)
+    img.save(os.path.join(ROOT_DIR,MEDIA_URL[1:],icon_name))
+
+    return True
+   
+
+  def get_icon_url(self):
+    return to_icon(self.file.url)
+
+
+  @staticmethod
+  def get_num_of_state():
+    all = Media.objects.count()
+    attached = Media.objects.filter(attached = True).count()
+    unattached = all - attached
+
+    return {'num_allimage':all,
+        'num_attached':attached,
+        'num_unattached':unattached
+        }
