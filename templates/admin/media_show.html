@@ -11,7 +11,7 @@
 
   <ul class ="overall" >
     <li class = "all">
-      <a href="/amin/media/show/">All
+      <a href="/admin/media/show/">All
         <span class = "count">({{num_allimage}})</span>
       </a>
       |
@@ -19,7 +19,7 @@
 
 
     <li class = "image">
-      <a href="/admin/media/show/filter=true&attached=true">Image
+      <a href="/admin/media/show/?filter=true&attached=true">Image
         <span class = "count">({{num_attached}})</span>
       </a>
       |
@@ -27,16 +27,15 @@
 
 
     <li class = "unattached">
-      <a href="/admin/media/show/filter=true&attached=false">Unattached
+      <a href="/admin/media/show/?filter=true&attached=false">Unattached
         <span class = "count">({{num_unattached}})</span>
       </a>
     </li>
   </ul>
 
 
-  <form method="get" class ="filter">
+  <form method="get" class ="filter" action="/admin/media/search/">
     <p class = "search_box text">
-    <input type = "hidden" name = "attached" value = "{{attached}}" />
     <input type = "text" class= "text search_text" name ="q" />
     <input type = "submit" class = "button search_button" value = "search media" />
     </p>

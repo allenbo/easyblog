@@ -1,0 +1,71 @@
+{% extends "admin/base.html" %}
+{% block title %}Media Upload{% endblock %}
+
+
+{% block content %}
+<div class = "content_wrapper">
+  
+  <h2>{% if media %}Edit Media<a href="/admin/media/upload/" class = "add_new">Add New</a>
+    {% else %}Add New Media{% endif %}</h2>
+
+  <form method = "{% if media %}get{% else %}post{% endif %}" name = "post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type = "hidden" name="id" value = "{% if media %}{{media.id}}{% endif %}" />
+
+      <div class = "postbody">
+       
+        <div class = "postitem media_name">
+          <h3>Name</h3>
+          <input class = "text" type = "text" name = "name" value = "{% if media %}{{media.name}}{% endif %}" />
+          <div class = "basic_info">
+            The name is how you specify the media
+          </div>
+        </div>
+
+
+        <div class = "postitem media_caption">
+          <h3>Caption</h3>
+          <input class = "text" type = "text" name="caption" value = "{% if media %}{{media.caption}}{% endif %}" />
+          <div class = "basic_info">
+            The caption is how it appears under the image in the blog 
+          </div>
+        </div>
+
+
+        <div class ="postitem media_file">
+          <h3>Image</h3>
+          {% if media %}
+          <img src = "{{media.file.url}}">
+          {% else %}
+          <input type = "file" name = "file" class = "text"/>
+          {% endif %}
+        </div>
+
+
+
+        <div class = "postitem media_alternative">
+          <h3>Alternative</h3>
+          <input type = "text" class = "text" name = "alternative" value = "{% if media %}{{media.alternative }}{% endif %}" />
+          <div class = "basic_info">
+            The alternative is what appears when the broswer finishs downloading the image
+          </div>
+        </div>
+
+
+        <div class = "postitem media_description">
+          <h3>Description</h3>
+          <textarea class ="text" rows = "60" cols = "10" name = "description">{% if media %}{{media.description}}{% endif %}</textarea>
+        </div>
+
+      </div>
+      {% if media %}
+      <input type="submit" name="update" value = "Update Media" class = "button_large" />
+      {% else %}
+      <input type="submit" name="add_new" value = "Add New Media" class = "button_large" />
+      {% endif %}
+  </form>
+
+
+</div>
+
+{% endblock %}

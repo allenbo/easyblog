@@ -3,6 +3,7 @@ from datetime import datetime
 from easyblog.settings import ROOT_DIR, MEDIA_URL
 import os
 import Image
+import common
 
 # Create your models here.
 
@@ -216,16 +217,9 @@ class Media(models.Model):
 
   
   def generate_icon(self):
-    img = Image.open(os.path.join(ROOT_DIR, MEDIA_URL[1:], self.file.name))
-    width, height = img.size
-
-    radio = height / 32.0 if height > width else width / 32.0
-
-    height, width = int (height / radio), int(width/radio)
-    img = img.resize((width, height), Image.ANTIALIAS)
-    icon_name = to_icon(self.file.name)
-    img.save(os.path.join(ROOT_DIR,MEDIA_URL[1:],icon_name))
-
+    origin_path = os.path.join(ROOT_DIR, MEDIA_URL[1:], self.file.name)
+    icon_path = os.path.join(ROOT_DIR, MEDIA_URL[1:], to_icon(self.file.name))
+    common.resize_image(origin_path, 64, 64, icon_path)
     return True
    
 

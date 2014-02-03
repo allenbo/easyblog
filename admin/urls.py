@@ -16,8 +16,10 @@ urlpatterns = patterns('',
 
     url(r'^media/$', 'admin.media.show'),
     url(r'^media/show/$', 'admin.media.show'),
+    url(r'^media/search/$', 'admin.media.search'),
     url(r'^media/edit/$', 'admin.media.edit'),
     url(r'^media/upload/$', 'admin.media.upload'),
+    url(r'^media/delete/$', 'admin.media.delete'),
 
     url(r'category/$', 'admin.category.show'),
     url(r'category/show/$', 'admin.category.show'),
