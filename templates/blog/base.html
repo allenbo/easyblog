@@ -44,7 +44,7 @@
           <p class = "widget_title">ARCHIVE</p>
           <ul class = archive_list>
             {% for archive in archives %}
-            <li><a href = "/blog/{{archive.created_date|date:"Y"}}/{{archive.created_date|date:"m"}}">{{ archive.created_date|date:"M Y"}}</a></li>
+            <li><a href = "/blog/{{archive|date:"Y"}}/{{archive|date:"m"}}">{{ archive|date:"M Y"}}</a></li>
             {% endfor %}
         </div>
         <div class = "widget widget_category">

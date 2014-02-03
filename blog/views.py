@@ -29,7 +29,7 @@ def post(request, mangled):
       id = request.GET['id']
       post = Post.objects.get(id = id)
       
-      if not post or post.published == True:
+      if not post:
         return render(request, 'admin/error.html', {'errors':errors})
       preview = True
     else:

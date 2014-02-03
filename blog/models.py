@@ -97,9 +97,17 @@ class Post(models.Model):
     else:
       return Post.objects.get(id = self.id + 1)
 
+
   @staticmethod
   def get_archive():
-    return Post.objects.values('created_date').distinct()
+    dates = Post.objects.values('created_date').distinct()
+    blog_dates = []
+    for date in dates:
+      archive_date = datetime(year = date['created_date'].year, month = date['created_date'].month,
+          day = 1)
+      if archive_date not in blog_dates:
+        blog_dates.append(archive_date)
+    return blog_dates
 
   @staticmethod
   def insert_from_dic(dic, author = None):

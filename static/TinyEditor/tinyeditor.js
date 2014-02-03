@@ -204,7 +204,8 @@ TINY.editor=function(){
   },
 
   edit.prototype.setinit = function() {
-    this.e.body.innerHTML = this.t.getAttribute("value");
+    //this.e.body.innerHTML = this.t.getAttribute("value");
+    this.e.body.innerHTML = this.t.outerText;
   };
   return{edit:edit}
 }();
